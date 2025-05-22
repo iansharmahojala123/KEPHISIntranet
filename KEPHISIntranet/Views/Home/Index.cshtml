@@ -1,0 +1,187 @@
+﻿<!-- Welcome Section -->
+<div class="welcome-section">
+    <div class="welcome-text">
+        <h1>Welcome, Admin!</h1>
+        <div class="welcome-subtitle">
+            Your hub for updates, resources, and collaboration. Explore, connect, stay informed!
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links Section -->
+<div class="container">
+    <div class="row justify-content-center g-4 py-3">
+        <!-- Card Item -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="quicklink-card" onclick="window.location.href='https://mail.kephis.org'">
+                <i class="fa fa-envelope quicklink-icon fa-2x"></i>
+                <div class="quicklink-text">Staff Mail</div>
+            </div>
+        </div>
+
+
+        <a href="@Url.Action("EmployeeServices", "Home")">
+            <div style="max-width: 1600px; width: 100%; margin: 0 auto;">
+                <div class="quicklink-card">
+                    <i class="fa fa-users quicklink-icon fa-2x"></i>
+                    <div class="quicklink-text">Employee Services</div>
+                    <i class="fa fa-bullhorn quicklink-icon fa-2x"></i>
+                </div>
+            </div>
+        </a>``
+
+
+
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="quicklink-card">
+                <i class="fa fa-bullhorn quicklink-icon fa-2x"></i>
+                <div class="quicklink-text">Internal Communication</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="quicklink-card">
+                <i class="fa fa-file-alt quicklink-icon fa-2x"></i>
+                <div class="quicklink-text">Documents & Policies</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="quicklink-card">
+			<img src="~/assets/images/tool.png" alt="Work Tools" class="quicklink-image">
+                <div class="quicklink-text">Work Tools</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="quicklink-card">
+                <i class="fa fa-handshake quicklink-icon fa-2x"></i>
+                <div class="quicklink-text">Collaboration</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Resources, Shout-Outs, and Calendar Section -->
+<div class="container my-5">
+    <div class="row g-5">
+
+        <!-- Top Resources -->
+        <div class="col-12 col-lg-4">
+            <h3 class="section-title">TOP RESOURCES</h3>
+
+            <div class="search-box my-3">
+                <input type="text" class="form-control search-input" placeholder="Search Forms & Templates">
+            </div>
+
+            <div class="resources-scroll">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="resource-card bg-dark-blue">✏️ Request Forms</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-teal">✨ Applications</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-orange">📝 Templates</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-green">💡 Projects</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-green">📖 Employee Handbook</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-gray">📋 Policies & Procedures</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-light-blue">📢 Marketing Collateral</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="resource-card bg-dark-navy">📰 Newsletters</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shout-Outs -->
+        <div class="col-12 col-lg-4">
+            <h3 class="section-title">SHOUT-OUTS</h3>
+
+            <div class="shoutouts-scroll mt-3">
+                <div class="card shoutout-card p-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Avatar">
+                        <div>
+                            <strong>Sabina Saetgareeva</strong> recognized <strong>Yaroslav Pentsarskyy</strong><br>
+                            <small class="text-muted">on June 11</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="emoji-icon me-2">👋</span>
+                        <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Avatar">
+                    </div>
+                    <p class="shoutout-text">
+                        I want to give a huge shout-out to Yaro for his exceptional coordination between the Development, QA, DevOps, and Support teams in quickly addressing and resolving the system outage last Friday...
+                    </p>
+                    <div class="d-flex align-items-center like-section">
+                        <i class="fa fa-thumbs-up me-1"></i> <span>1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="col-12 col-lg-4">
+            <h3 class="section-title">CALENDAR</h3>
+
+            <div class="calendar-scroll mt-3">
+                <div class="calendar-container p-3">
+                    <div class="calendar-header text-center">
+                        <h5>Jul 2024</h5>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-sm btn-light">&lt;</button>
+                            <button class="btn btn-sm btn-light">&gt;</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-body mt-3">
+                        <table class="table table-bordered calendar-table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>T</th>
+                                    <th>W</th>
+                                    <th>T</th>
+                                    <th>F</th>
+                                    <th>S</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+                                <tr><td>7</td><td class="highlight">8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+                                <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+                                <tr><td>21</td><td>22</td><td>23</td><td>24</td><td class="highlight">25</td><td>26</td><td>27</td></tr>
+                                <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="event-details mt-3">
+                        <div class="border p-2 rounded">
+                            <strong>26 JUL</strong><br>
+                            New Hire Orientation<br>
+                            <small>4:00 PM - 5:00 PM</small><br>
+                            <span class="badge bg-success mt-1">Business</span>
+                            <div><a href="#" class="event-rsvp">+ RSVP</a></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
