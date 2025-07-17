@@ -1,0 +1,9 @@
+http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: 1f25782e-3c80-476b-8fa3-59bb81d64ee8
+http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name: Admin
+http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress: admin@kephis.org
+AspNet.Identity.SecurityStamp: 5Q2YAOEKO3GN2UMIYFJFODONJKS4QBIU
+http://schemas.microsoft.com/ws/2008/06/identity/claims/role: Admin
+http://schemas.microsoft.com/ws/2008/06/identity/claims/role: Admin
+role: Admin
+mustChangePassword: False
+amr: pwd

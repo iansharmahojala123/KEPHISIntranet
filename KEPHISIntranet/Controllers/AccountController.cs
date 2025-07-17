@@ -1,117 +1,249 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KEPHISIntranet.Models;
+using KEPHISIntranet.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.ViewModels;
+using System.Threading.Tasks;
 
 namespace KEPHISIntranet.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Login Page
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
+
+        public AccountController(SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IEmailSender emailSender)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _emailSender = emailSender;
+        }
+
         [HttpGet]
-        public ActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string? returnUrl = null)
         {
-            return View();
+            return View(new LogInViewModel { ReturnUrl = returnUrl ?? "/" });
         }
 
-        // POST: Handle login authentication
         [HttpPost]
-        public ActionResult Login(LogInViewModel loginmodel)
-        {
-            if (loginmodel.UserNameOrEmail == "admin" && loginmodel.Password == "1234")
-            {
-                return RedirectToAction("Index", "Home"); // Redirect to Home page if login is successful
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Invalid username or password";
-                return View();
-            }
-        }
-
-        // GET: Registration Page
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        // POST: Handle user registration (You can implement actual registration logic)
-        [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(IFormCollection form)
+        public async Task<IActionResult> Login(LogInViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                // Add registration logic here
+                TempData["Message"] = "Please fill in all required fields.";
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.UserNameOrEmail)
+                     ?? await _userManager.FindByNameAsync(model.UserNameOrEmail);
+
+            if (user == null)
+            {
+                TempData["Message"] = "User not found.";
+                return View(model);
+            }
+
+            // ✅ Check if user is disabled
+            if (user.IsDisabled)
+            {
+                TempData["Message"] = "Your account has been disabled. Contact the administrator.";
+                return View(model);
+            }
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                TempData["Message"] = "Your email is not confirmed. Please contact the administrator.";
+                return View(model);
+            }
+
+            if (await _userManager.IsLockedOutAsync(user))
+            {
+                TempData["Message"] = "Your account is locked. Try again later.";
+                return View(model);
+            }
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
+            if (!isPasswordValid)
+            {
+                TempData["Message"] = "Invalid login credentials.";
+                return View(model);
+            }
+
+            if (user.MustChangePassword)
+            {
+                TempData["UserId"] = user.Id;
+                TempData["TempPassword"] = model.Password;
+                return RedirectToAction("ChangePasswordBeforeLogin");
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(
+                user.UserName!, model.Password, model.RememberMe, lockoutOnFailure: true);
+
+            if (result.Succeeded)
+            {
+                TempData["Message"] = "Login successful.";
+                return Redirect(string.IsNullOrEmpty(model.ReturnUrl) ? "/" : model.ReturnUrl);
+            }
+
+            TempData["Message"] = result.IsLockedOut ?
+                "Account locked due to multiple failed login attempts." :
+                result.IsNotAllowed ? "Login not allowed. Contact administrator." :
+                "Login failed. Please try again.";
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ChangePasswordBeforeLogin()
+        {
+            if (TempData["UserId"] == null || TempData["TempPassword"] == null)
+            {
+                TempData["Message"] = "Session expired. Please login again.";
                 return RedirectToAction("Login");
             }
-            catch
+
+            ViewBag.UserId = TempData["UserId"];
+            ViewBag.TempPassword = TempData["TempPassword"];
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePasswordBeforeLogin(string userId, string tempPassword, ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                ViewBag.ErrorMessage = "Registration failed. Try again.";
-                return View();
+                ViewBag.UserId = userId;
+                ViewBag.TempPassword = tempPassword;
+                return View(model);
             }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                TempData["Message"] = "User not found.";
+                return RedirectToAction("Login");
+            }
+
+            var isValid = await _userManager.CheckPasswordAsync(user, tempPassword);
+            if (!isValid)
+            {
+                TempData["Message"] = "Invalid session. Please log in again.";
+                return RedirectToAction("Login");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                user.MustChangePassword = false;
+                await _userManager.UpdateAsync(user);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                TempData["Message"] = "Password changed successfully.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            ViewBag.UserId = userId;
+            ViewBag.TempPassword = tempPassword;
+            return View(model);
         }
 
-        // GET: Dashboard or landing page after login
-        public ActionResult Index()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
         {
-            return View();
-        }
-
-        // Handle Logout and redirect to login
-        public ActionResult Logout()
-        {
+            await _signInManager.SignOutAsync();
+            TempData["Message"] = "You have been logged out.";
             return RedirectToAction("Login", "Account");
         }
 
-        // GET: Account details (Optional)
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied() => View();
 
-        // GET: Edit account details (Optional)
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword() => View();
 
-        // POST: Update account details
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection form)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null || !string.Equals(user.Email, model.Email, System.StringComparison.OrdinalIgnoreCase))
             {
-                // Add update logic here
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "No user found with the provided username and email.";
+                return View(model);
             }
-            catch
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
             {
-                return View();
+                TempData["Message"] = "Your email is not confirmed.";
+                return View(model);
             }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("ResetPassword", "Account", new { token, email = model.Email }, Request.Scheme);
+
+            await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                $"Please reset your password by clicking <a href='{callbackUrl}'>here</a>.");
+
+            TempData["Message"] = "A password reset link has been sent if your account exists.";
+            return View("ForgotPassword");
         }
 
-        // GET: Delete account confirmation (Optional)
-        public ActionResult Delete(int id)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
         {
-            return View();
+            if (token == null || email == null)
+                return RedirectToAction("Login");
+
+            return View(new ResetPasswordViewModel { Token = token, Email = email });
         }
 
-        // POST: Handle account deletion
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection form)
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
             {
-                // Add deletion logic here
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "User not found.";
+                return RedirectToAction("Login");
             }
-            catch
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            if (result.Succeeded)
             {
-                return View();
+                TempData["Message"] = "Password successfully reset.";
+                return RedirectToAction("Login");
             }
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View(model);
         }
     }
 }

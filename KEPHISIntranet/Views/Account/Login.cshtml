@@ -1,68 +1,68 @@
-﻿@using UserManagement.ViewModels
+﻿@using KEPHISIntranet.ViewModels
 @model LogInViewModel
+
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewData["Title"] = "Login";
 }
-<!-- -------------------------------------------------------------- -->
-<!-- Login box.scss -->
-<div class="col-md-6 col-xl-6 mx-auto" style="margin-left:auto;margin-right:auto">
+
+<div class="col-md-6 col-xl-6 mx-auto">
     <div class="card" style="margin-bottom:0px;box-shadow:0 0 10px 0 rgba(183,192,206,.2);">
         <div class="row">
             <div class="col-md-4 pe-md-0 bg-success">
-                <div class="auth-side-wrapper">
-                </div>
+                <div class="auth-side-wrapper"></div>
             </div>
             <div class="col-md-8 ps-md-0">
                 <div class="auth-form-wrapper px-4 py-4">
-                    <div style="text-align:center">
+                    <div class="text-center">
                         <img src="~/assets/images/login/kephis-logo.png" width="80" alt="Home" />
                     </div>
-                    <a href="#" class="noble-ui-logo d-block mb-2" style="text-align:center;font-weight: 600;font-size: 18px;color: #006019;font-family:-apple-system,BlinkMacSystemFont," Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";>
+
+                    <a href="#" class="noble-ui-logo d-block mb-2 text-center fw-semibold"
+                       style="font-size:18px;color:#006019;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';">
                         KEPHIS Hub
-                        <p></p>
                     </a>
-                    <h5 class="text-muted fw-normal mb-4" style="margin-bottom:10px;padding-top:0rem;"><span style="font-size:18px"></span><span> Login to your account</span></h5>
 
-                    @{ var message = TempData["Message"]; }
-                    @if (message != null)
-                    {<div class="alert alert-danger col-md-12" style="padding:0.5rem">
-                            <h4 style="font-weight:400">@message</h4>
+                    <h5 class="text-muted fw-normal mb-4" style="margin-bottom:10px;padding-top:0rem;">
+                        Login to your account
+                    </h5>
+
+                    @if (TempData["Message"] != null)
+                    {
+                        var message = TempData["Message"].ToString();
+                        var isError = message.Contains("Invalid") || message.Contains("locked") || message.Contains("not allowed") || message.Contains("not found");
+
+                        <div class="alert @(isError ? "alert-danger" : "alert-success") col-md-12" style="padding:0.5rem">
+                            <h4 class="fw-normal">@message</h4>
                         </div>
-
                     }
-                    <form form asp-action="Login" asp-controller="Account" class="fform-horizontal needs-validation" id="" method="POST" novalidate="">
+
+                    <form asp-action="Login" asp-controller="Account" method="post" class="form-horizontal needs-validation" novalidate>
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                         <div class="form-floating mb-3">
-                            @Html.HiddenFor(x => x.ReturnUrl)
-                            <input asp-for="UserNameOrEmail" class="form-control form-input-bg" id="tb-email" required>
-                            <label for="tb-email">User Name or Email</label>
-                            <div class="invalid-feedback">
-                                Email is required
-                            </div>
+                            <input asp-for="UserNameOrEmail" class="form-control form-input-bg" id="tb-email" required autofocus />
+                            <label asp-for="UserNameOrEmail">User Name or Email</label>
+                            <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input asp-for="Password" type="password" class="form-control form-input-bg" id="text-password" required>
-                            <label for="text-password">Password</label>
-                            <div class="invalid-feedback">
-                                Password is required
-                            </div>
+                            <input asp-for="Password" type="password" class="form-control form-input-bg" id="text-password" required />
+                            <label asp-for="Password">Password</label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex align-items-center mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="r-me1">
-                                <label class="form-check-label" for="r-me1">
-                                    Remember me
-                                </label>
-                                <div class="invalid-feedback">
-                                    You must agree before submitting.
-                                </div>
+                                <input asp-for="RememberMe" class="form-check-input" id="r-me1" />
+                                <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
                             </div>
                             <div class="ms-auto">
-                                <a href="/Account/ForgotPassword" id="to-recover" class="fw-bold">Forgot Password?</a>
+                                <a asp-controller="Account" asp-action="ForgotPassword" class="fw-bold">Forgot Password?</a>
                             </div>
                         </div>
+
                         <div class="col-md-12 d-grid gap-2">
                             <button type="submit" class="btn waves-effect waves-light btn-success">Login</button>
                         </div>
@@ -72,3 +72,13 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        setTimeout(function () {
+            const alertBox = document.querySelector(".alert-success");
+            if (alertBox) alertBox.style.display = "none";
+        }, 3000);
+    </script>
+}

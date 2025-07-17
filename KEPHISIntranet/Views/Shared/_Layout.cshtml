@@ -1,86 +1,69 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
-
-
-<!-- Mirrored from wrappixel.com/demos/admin-templates/monster-admin/minimal/index4.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 29 Oct 2018 06:07:14 GMT -->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" href="~/assets/images/favicon-32x32.png">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link rel="icon" type="image/png" href="~/assets/images/favicon-32x32.png" />
     <title>KEPHIS - Intranet | @ViewData["Title"]</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/plugins/wizard/steps.css" rel="stylesheet">
-    <!--alerts CSS -->
-    <link href="~/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/plugins/icheck/skins/all.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/assets/plugins/datatables/media/css/dataTables.bootstrap4.css">
-    <!-- Page plugins css -->
-    <link href="~/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
-    <!--alerts CSS -->
-    <link href="~/assets/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
-    <!-- Date picker plugins css -->
-    <link href="~/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-    <!-- Daterange picker plugins css -->
-    <link href="~/assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-    <link href="~/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
-    <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-datetimepicker.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
+    <!-- Core CSS -->
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/colors/default-dark.css" id="theme" rel="stylesheet" />
 
-    <!-- page CSS -->
-    <link href="~/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <!-- Plugin CSS -->
+    <link href="~/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/assets/plugins/icheck/skins/all.css" rel="stylesheet" />
+    <link href="~/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet" />
+    <link href="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet" />
+    <link href="~/assets/plugins/css-chart/css-chart.css" rel="stylesheet" />
+
+    <!-- DataTables -->
+    <link href="~/assets/plugins/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/assets/plugins/datatables/media/css/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatable/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="~/css/select.dataTables.min.css" rel="stylesheet" />
+
+    <!-- Form Enhancements -->
+    <link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
-    <link href="~/assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
-    <!--alerts CSS -->
-    <link href="~/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
-    <!-- toast CSS -->
-    <link href="~/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/Layout1/assets/fonts/feather-font/css/iconfont.css">
-    <link rel="stylesheet" href="~/Layout1/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="~/Layout1/assets/vendors/flatpickr/flatpickr.min.css">
-    <!--DataTables-->
-    <link href="~/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
-    <link href="~/assets/plugins/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/plugins/datatables/media/css/select.dataTables.min.css" rel="stylesheet" />
-    <!--DataTables Buttons-->
-    <link href="~/js/datatable/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="~/css/awesome-bootstrap-checkbox.css" rel="stylesheet" />
-    <link href="~/css/select.dataTables.min.css" rel="stylesheet" />
-    <link href="~/css/dataTables.checkboxes.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-datetimepicker.css" rel="stylesheet" />
-    <link href="~/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    <!-- chartist CSS -->
-    <link href="~/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="~/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <link href="~/assets/plugins/css-chart/css-chart.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="~/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/assets/plugins/datatables/media/css/dataTables.bootstrap4.css">
-    <!-- You can change the theme colors from here -->
-    <link href="~/css/colors/default-dark.css" id="theme" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <link href="~/assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" />
+
+    <!-- Toast and Font -->
+    <link href="~/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Custom Theme -->
+    <link rel="stylesheet" href="~/Layout1/assets/fonts/feather-font/css/iconfont.css" />
+    <link rel="stylesheet" href="~/Layout1/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="~/Layout1/assets/vendors/flatpickr/flatpickr.min.css" />
+    <link href="~/assets/plugins/wizard/steps.css" rel="stylesheet" />
+
+    <!-- IE Support -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
+    <!-- Analytics (optional) -->
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -97,410 +80,285 @@
     </script>
 
     <style>
-        /* mouse over link */
         a:hover {
             color: #EFB53A;
         }
     </style>
 </head>
+
 @{
-    string userName = null;
-    string email = null;
-    string emp_Id = null;
-    string correlationId = null;
-    string role = null;
-    if (User.Identity.IsAuthenticated)
-    {
-        userName = User.Identity.Name;
-        email = User.FindFirst("Email")?.Value;
-        emp_Id = User.FindFirst("EMP_ID")?.Value;
-        correlationId = User.FindFirst("CorrelationId")?.Value;
-        role = User.FindFirst("role")?.Value;
-    }
+        string? userName = null;
+        string? email = null;
+        string? emp_Id = null;
+        string? correlationId = null;
+        string? role = null;
+
+        if (User.Identity?.IsAuthenticated == true)
+        {
+                userName = User.Identity.Name;
+                email = User.FindFirst("Email")?.Value;
+                emp_Id = User.FindFirst("EMP_ID")?.Value;
+                correlationId = User.FindFirst("CorrelationId")?.Value;
+                role = User.FindFirst("role")?.Value?.ToLower(); // normalized to lowercase
+        }
 }
+
 <body class="fix-header fix-sidebar card-no-border">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    <!-- Preloader -->
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
         </svg>
     </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- ============================================================== -->
-                <!-- Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
-                        <b>
-                            <i class="icon-user-following text-white" width="24" height="24"></i>
-                        </b>
-                        <span>
-                            <span href="#" class="sidebar-brand" style="color:white;font-size:18px">
-                                KEPHIS<span style="font-weight:normal;color:#3d9948;">-Intranet</span>
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav mr-auto mt-md-0 ">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-success waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-success waves-effect waves-dark" href="javascript:void(0)"><i class="icon-arrow-left-circle"></i></a> </li>
-                        <li class="nav-item hidden-sm-down">
-                        </li>
-                    </ul>
-                    <!-- User profile and search -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="btn btn-danger btn-circle" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Quick Create" style="margin-bottom: 10px;border-radius:100%;width:26px;height:26px;padding:3px;"><i class="fa fa-link"></i></div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" style="width:600px;padding:20px;font-size:0.9rem;" aria-labelledby="2">
-                                <ul class="mega-dropdown-menu row">
-                                    <li class="col-lg-4">
-                                        <h4 class="mb-3"><i class="ti-settings"></i> General</h4>
-                                        <!-- List style  -->
-                                        <ul class="list-style-none">
-                                            <li><a class="add-employee" href="/Employee/_AddEmployee"><i class="mdi mdi-plus"></i> Employee</a></li>
-                                            <li><a class="add-aspect" href="/AuthorizedAspect/_AddAuthorizedAspect"><i class="mdi mdi-plus"></i>Authorized Aspect</a></li>
-                                            <li><a class="add-category" href="/Category/_AddCategory"><i class="mdi mdi-plus"></i> Category</a></li>
-                                            <li><a class="add-fee" href="/Fee/_AddFee"><i class="mdi mdi-plus"></i> Authorization Fee</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Add User</a></li>
-                                        </ul>
-                                    </li>
 
-                                    <li class="col-lg-4">
-                                        <h4 class="mb-3"><i class="icon-directions"></i> Entity/Institution</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Add Entity</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Invoice</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Payment</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Receive Payment</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Generate Report</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-4">
-                                        <h4 class="mb-3"><i class="icon-people "></i> Inspector</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Add Inspector</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Invoice</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Payment</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Receive Payment</a></li>
-                                            <li><a href="javascript:void(0)"><i class="mdi mdi-plus"></i> Generate Report</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="me-2 icon-md" data-feather="bell" width="20" height="20"></i></a>
-                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">You have 4 new messages</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center" style="overflow: hidden; width: auto; height: 250px;">
-                                            <a href="#">
-                                                <div class="user-img"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy float-right"></span> </div>
-                                                <div class="mail-contnet">
-                                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="user-img"> <img src="../assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away float-right"></span> </div>
-                                                <div class="mail-contnet">
-                                                    <h5>Arijit Sinh</h5> <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="#">
-                                                <div class="user-img"> <img src="../assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline float-right"></span> </div>
-                                                <div class="mail-contnet">
-                                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="me-2 icon-md" data-feather="user" width="20" height="20"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img"><i class="me-2 icon-md" data-feather="user" width="48" height="48"></i></div>
-                                            <div class="u-text">
-                                                <h4>@userName</h4>
-                                                <p class="text-muted">@email</p><a href="/UserManagement/ViewUserDetails?id" class="btn btn-danger btn-sm">View Profile</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/UserManagement/ViewUserDetails?id"><i class="ti-user"></i> My Profile</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/UserManagement/ViewUserDetails?id"><i class="ti-settings"></i> Account Setting</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="@Url.Action("Logout", "Account")"><i class="fa fa-power-off"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->H
-        <aside class="left-sidebar" style="height: 100vh; overflow-y: auto;">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">STAFF MAIN</li>
-                        <li>
-                            <a asp-controller="Home" asp-action="Index" class="" aria-expanded="false"><i class="icon-home"></i><span class="hide-menu">Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble" style="font-size:1.3rem;"></i><span class="hide-menu">Administration</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="Employee" asp-action="EmployeeList">Employees</a></li>
-                                <li><a asp-area="" asp-controller="AuthorizedAspect" asp-action="AuthorizedAspectList">Authorised Aspects</a></li>
-                                <li><a asp-area="" asp-controller="Category" asp-action="CategoryList">Category</a></li>
-                                <li><a asp-area="" asp-controller="Fee" asp-action="FeeList">Fee</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">EMPLOYEE SERVICES </li>
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="icon-link"></i><span class="hide-menu">Entity </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="Entity" asp-action="EntityList">ERP Portal</a></li>
-                                <li><a asp-area="" asp-controller="EntityPayment" asp-action="AddPayment">Phyrosanitary Documents</a></li>
-                                @*<li><a asp-area="" asp-controller="EntityFee" asp-action="EntityFeeList">Entity Fee</a></li>*@
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="icon-people"></i><span class="hide-menu">Inspector </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="Inspector" asp-action="InspectorList">Inspector</a></li>
-                                <li><a asp-area="" asp-controller="InspectorFee" asp-action="InspectorFeeList">Inspector Fee</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">DOCUMENTS & POLICIES </li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Entity Payment</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                
-                                <li><a asp-area="" asp-controller="EntityPayment" asp-action="EntityPaymentList">Upload Payment</a></li>
-                                <li><a asp-area="" asp-controller="EntityPaymentFile" asp-action="PaidEntityList">View Paid Fees</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-cash"></i><span class="hide-menu">Inspector Payment</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="InspectorPayment" asp-action="InspectorPaymentList">Upload Payment</a></li>
-                                <li><a asp-area="" asp-controller="InspectorPayment" asp-action="PaideInspectorFeeList">View Paid Fees</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">INTERNAL COMMUNICATIONS</li>
-                        <li>
-                            <a asp-area="" asp-controller="Report" asp-action="InspectionCertificateList"><i class="icon-chart"></i><span class="hide-menu">Inspection Certificates</span></a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Report" asp-action="InspectionResultList"><i class="icon-chart"></i><span class="hide-menu">Inspection Results</span></a>
-                        </li>
-                        <li>
-                            <a href="#" aria-expanded="false"><i class="icon-docs"></i><span class="hide-menu">All Certificates</span></a>
-                        </li>
-                        <li class="nav-devider"></li>
-                        <li class="nav-small-cap">COLLABORATIONS</li>
-                        <li class="">
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="icon-wrench"></i><span class="hide-menu">User Mangement</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="UserManagement" asp-action="UsersList">Users</a></li>
-                                <li><a asp-area="" asp-controller="RoleManagement" asp-action="RolesList">Roles</a></li>
-                                <li><a asp-area="" asp-controller="RoleManagement" asp-action="PermissionsList">Permissions</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-small-cap">WORK TOOLS</li>
-                        <li class="">
-                            <a class="has-arrow " href="#" aria-expanded="false"><i class="icon-wrench"></i><span class="hide-menu">User Mangement</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a asp-area="" asp-controller="UserManagement" asp-action="UsersList">Users</a></li>
-                                <li><a asp-area="" asp-controller="RoleManagement" asp-action="RolesList">Roles</a></li>
-                                <li><a asp-area="" asp-controller="RoleManagement" asp-action="PermissionsList">Permissions</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
+    <!-- Main Wrapper -->
+    <header class="topbar">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="height:20px !important;">
+            <!-- Logo -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/Home/Index">
+                    <b><i class="icon-user-following text-white" width="24" height="24"></i></b>
+                    <span class="text-white" style="font-size:18px;">
+                        KEPHIS<span style="font-weight:normal; color:#3d9948;">-Intranet</span>
+                    </span>
+                </a>
             </div>
-            <!-- End Sidebar scroll-->
-            <!-- Bottom points-->
-            <div class="sidebar-footer">
-                <!-- item-->
-                <a href="#" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
-                <!-- item-->
-                <a href="#" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                <!-- item-->
-                <a href="#" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
-            </div>
-            <!-- End Bottom points-->
-        </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                @RenderBody()
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <div class="right-sidebar">
-                    <div class="slimscrollright">
-                        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-                        <div class="r-panel-body">
-                            <ul id="themecolors" class="mt-3">
-                                <li><b>With Light sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
-                                <li class="d-block mt-4"><b>With Dark sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
-                            </ul>
-                            <ul class="mt-3 chatonline">
-                                <li><b>Chat option</b></li>
+
+            <!-- Navbar Collapse -->
+            <div class="navbar-collapse">
+                <!-- Left nav toggles -->
+                <ul class="navbar-nav mr-auto mt-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggler hidden-md-up text-success waves-effect waves-dark" href="javascript:void(0)">
+                            <i class="ti-menu"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center px-1" style="background-color: #f0f4f3; border-radius: 6px; margin-right: 10px;">
+                        <a class="nav-link sidebartoggler text-dark fw-semibold d-flex align-items-center justify-content-center"
+                           href="javascript:void(0)" style="text-decoration: none; padding: 6px 10px;">
+                            <i class="fa fa-bars" style="font-size: 18px;"></i>
+                        </a>
+                    </li>
+                </ul>
+
+
+                </ul>
+
+                <!-- User profile -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="me-2 icon-md" data-feather="user" width="20" height="20"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                            <ul class="dropdown-user">
                                 <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/ass  -ets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="~/assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                                    <div class="dw-user-box">
+                                        <div class="u-img">
+                                            <i class="me-2 icon-md" data-feather="user" width="48" height="48"></i>
+                                        </div>
+                                        <div class="u-text">
+                                            <h4>@userName</h4>
+                                            <p class="text-muted">@email</p>
+                                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar" style="height: 100vh; overflow-y: auto;">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <!-- STAFF MAIL -->
+                    <li class="nav-small-cap">STAFF MAIL</li>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index" class="" aria-expanded="false">
+                            <img src="~/assets/images/dashboard.png"
+                                 style="width: 19px; height: 19px; filter: brightness(0) invert(1);"
+                                 alt="Dashboard Icon" />
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- ADMINISTRATION -->
+                    @if (role == "admin" || role == "communications")
+                    {
+                        <li class="nav-small-cap">ADMINISTRATION</li>
+                        <li>
+                            <a asp-controller="UserManagement" asp-action="UsersList" class="" aria-expanded="false">
+                                <i class="fa fa-users"></i>
+                                <span class="hide-menu">Manage Users</span>
+                            </a>
+                        </li>
+                    }
+
+                    <!-- EMPLOYEE SERVICES -->
+                    <li class="nav-devider"></li>
+                    <li class="nav-small-cap">EMPLOYEE SERVICES</li>
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false">
+                            <i class="fa fa-briefcase"></i>
+                            <span class="hide-menu">Employee Portals</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="https://mail.kephis.org" target="_blank"><i class="fa fa-envelope"></i> KEPHIS Email</a></li>
+                            <li><a href="http://41.139.212.197:1080/" target="_blank"><i class="fa fa-heartbeat"></i> KEPHIS Welfare</a></li>
+                            <li><a href="https://selfservice.kephis.org/" target="_blank"><i class="fa fa-user-circle"></i> Self-Service Portal</a></li>
+                            <li><a href="http://197.248.126.4:8095/sops/welcome-login.html" target="_blank"><i class="fa fa-lock"></i> KEPHIS ISMS</a></li>
+                            <li><a href="http://192.168.0.55:8081/" target="_blank"><i class="fa fa-flask"></i> Lab Sample Tracking</a></li>
+                            <li><a href="http://41.139.212.196:8082/Account/Login?returnUrl=/" target="_blank"><i class="fa fa-file-text"></i> Phytosanitary Docs</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- INTERNAL COMMUNICATION -->
+                    <li class="nav-devider"></li>
+                    <li class="nav-small-cap">INTERNAL COMMUNICATIONS</li>
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false">
+                            <i class="mdi mdi-bullhorn"></i>
+                            <span class="hide-menu">Announcements</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            @if (role == "admin" || role == "communications")
+                            {
+                                <li><a asp-controller="Announcements" asp-action="Create">Add Announcement</a></li>
+                            }
+                            <li><a asp-controller="Announcements" asp-action="Index">View Announcements</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- DOCUMENTS -->
+                    <li class="nav-devider"></li>
+                    <li class="nav-small-cap">DOCUMENTS & POLICIES</li>
+                    <li>
+                        <a href="http://192.168.0.31:8085/sops/" target="_blank">
+                            <i class="fa fa-folder-open"></i>
+                            <span class="hide-menu">SOPs and WI</span>
+                        </a>
+                    </li>
+
+                    <!-- USER MANAGEMENT -->
+                    @if (role == "admin" || role == "communications")
+                    {
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">USER MANAGEMENT</li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false">
+                                <i class="fa fa-users-cog"></i>
+                                <span class="hide-menu">User Management</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a asp-controller="UserManagement" asp-action="UsersList">Users</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    <!-- ZOOM MEETING REQUESTS -->
+                    <li class="nav-devider"></li>
+                    <li class="nav-small-cap">ZOOM MEETING REQUESTS</li>
+                    <li>
+                        <a class="has-arrow" href="#" aria-expanded="false">
+                            <i class="fa fa-handshake"></i>
+                            <span class="hide-menu">Zoom Requests</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a asp-controller="ZoomRequests" asp-action="Create">Request Zoom Meeting</a></li>
+                            <li><a asp-controller="ZoomRequests" asp-action="Index">View Requests</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+        <!-- Bottom Sidebar Icons -->
+        <div class="sidebar-footer">
+            <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                <button type="submit" class="link btn btn-link p-0 m-0" data-toggle="tooltip" title="Logout" style="color: inherit;">
+                    <i class="mdi mdi-power"></i>
+                </button>
+            </form>
+        </div>
+    </aside>
+
+
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <!-- Start Page Content -->
+            @RenderBody()
+            <!-- End Page Content -->
+            <!-- Right sidebar -->
+            <div class="right-sidebar">
+                <div class="slimscrollright">
+                    <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                    <div class="r-panel-body">
+                        <!-- Theme Color Options -->
+                        <ul id="themecolors" class="mt-3">
+                            <li><b>With Light sidebar</b></li>
+                            <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
+                            <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
+                            <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
+                            <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
+                            <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
+                            <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
+                            <li class="d-block mt-4"><b>With Dark sidebar</b></li>
+                            <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
+                            <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
+                            <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
+                            <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
+                            <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
+                            <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme">12</a></li>
+                        </ul>
+
+                        <!-- Chat Options -->
+                        <ul class="mt-3 chatonline">
+                            <li><b>Chat option</b></li>
+                            <li>
+                                <a href="#">
+                                    <img src="~/assets/images/users/1.jpg" class="img-circle" />
+                                    <span>Varun Dhavan <small class="text-success">online</small></span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer">
-                © @DateTime.Now.Year.ToString() KEPHIS Intranet - admin
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        <!-- Modals  -->
-        <!-- ============================================================== -->
-        <div class="modal fade" id="createEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="CreateEmployeeModal" aria-hidden="true" data-backdrop="static">
-            <div id="createEmployeeContainer">
-            </div>
-        </div>
 
+            <!-- Footer -->
+            <footer class="footer">
+                © @DateTime.Now.Year KEPHIS Intranet - @(role ?? "user")
+            </footer>
+        </div> <!-- End container-fluid -->
+    </div> <!-- End page-wrapper -->
+    <!-- Modals -->
+    <div class="modal fade" id="createEmployeeModal" tabindex="-1" role="dialog"
+         aria-labelledby="CreateEmployeeModal" aria-hidden="true" data-backdrop="static">
+        <div id="createEmployeeContainer"></div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+
+    <!-- JS Scripts -->
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="~/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="js/jquery.slimscroll.js"></script>
-    <!--Wave Effects -->
+    <script src="~/js/jquery.slimscroll.js"></script>
     <script src="~/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="~/js/sidebarmenu.js"></script>
-
-    <!-- This is data table -->
     <script src="~/assets/plugins/datatables/datatables.min.js"></script>
-    <!-- start - This is for export functionality only -->
     <script src="~/js/datatable/dataTables.buttons.min.js"></script>
     <script src="~/js/datatable/buttons.flash.min.js"></script>
     <script src="~/js/datatable/jszip.min.js"></script>
@@ -508,78 +366,50 @@
     <script src="~/js/datatable/vfs_fonts.js"></script>
     <script src="~/js/datatable/buttons.html5.min.js"></script>
     <script src="~/js/datatable/buttons.print.min.js"></script>
-
     <script src="~/assets/plugins/datatables/dataTables.select.min.js"></script>
     <script src="~/js/dataTables.checkboxes.min.js"></script>
-    <script src="~/assets/plugins/datatables/dataTables.select.min.js"></script>
-    <!--stickey kit -->
     <script src="~/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <!--Custom JavaScript -->
     <script src="~/js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- Clock Plugin JavaScript -->
     <script src="~/assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
     <script src="~/assets/plugins/switchery/dist/switchery.min.js"></script>
-    <script src="~/assets/plugins/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="~/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="~/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
-    <script src="~/assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/dff/dff.js" type="text/javascript"></script>
-    <script type="text/javascript" src="~/assets/plugins/multiselect/js/jquery.multi-select.js"></script>
-
-    <!-- ============================================================== -->
-    <!-- chartist chart -->
+    <script src="~/assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/assets/plugins/dff/dff.js"></script>
+    <script src="~/assets/plugins/multiselect/js/jquery.multi-select.js"></script>
     <script src="~/assets/plugins/chartist-js/dist/chartist.min.js"></script>
     <script src="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="~/assets/plugins/echarts/echarts-all.js"></script>
-    <!-- Vector map JavaScript -->
     <script src="~/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="~/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <!-- Calendar JavaScript -->
     <script src="~/assets/plugins/moment/moment.js"></script>
-    <script src='~/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
+    <script src="~/assets/plugins/calendar/dist/fullcalendar.min.js"></script>
     <script src="~/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
     <script src="~/assets/plugins/calendar/dist/cal-init.js"></script>
-    <!-- sparkline chart -->
     <script src="~/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
     <script src="~/js/dashboard4.js"></script>
-    <!-- ============================================================== -->
-    <!-- Style switcher -->
-    <!-- ============================================================== -->
-    <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
     <script src="~/Layout1/assets/vendors/feather-icons/feather.min.js"></script>
     <script src="~/Layout1/assets/js/template.js"></script>
-    <!-- Date Picker Plugin JavaScript -->
     <script src="~/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <!-- Date range Plugin JavaScript -->
     <script src="~/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <script src="~/assets/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="~/assets/plugins/moment/moment.js"></script>
     <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-    <script src="~/assets/plugins/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
-    <script src="~/assets/plugins/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
-    <!-- chartist chart -->
-    <script src="~/assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="~/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <!-- Chart JS -->
-    <script src="~/assets/plugins/echarts/echarts-all.js"></script>
-    <script src="js/dashboard5.js"></script>
+
+    <!-- Date Picker Initialization -->
     <script>
-        // Date Picker
         $('.mydatepicker, #datepicker').datepicker({
             format: 'dd/mm/yyyy',
-            //format: 'DD/MM/YYYY',
             autoclose: true,
             todayHighlight: true
         });
-        jQuery('#datepicker-autoclose').datepicker({
-            format: 'DD/MM/YYYY',
+        $('#datepicker-autoclose').datepicker({
+            format: 'dd/mm/yyyy',
             autoclose: true,
             todayHighlight: true
         });
     </script>
+
     @RenderSection("Scripts", required: false)
 </body>
-
 </html>

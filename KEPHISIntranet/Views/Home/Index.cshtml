@@ -1,187 +1,277 @@
-﻿<!-- Welcome Section -->
-<div class="welcome-section">
-    <div class="welcome-text">
-        <h1>Welcome, Admin!</h1>
-        <div class="welcome-subtitle">
-            Your hub for updates, resources, and collaboration. Explore, connect, stay informed!
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-bg"> <!-- ✅ Background wrapper starts -->
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <div class="welcome-text">
+            <h1>Welcome, @User.Identity.Name!</h1>
+            <div class="welcome-subtitle">
+                Your hub for updates, resources, and collaboration. Explore, connect, stay informed!
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <h3 class="text-center fw-semibold mb-4" style="font-size: 1.75rem;">
+            QUICK LINKS
+        </h3>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="container">
+        <div class="row justify-content-center g-4 py-3">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <div class="quicklink-card" onclick="window.location.href='https://mail.kephis.org'">
+                    <i class="fa fa-envelope quicklink-icon fa-2x"></i>
+                    <div class="quicklink-text">Staff Mail</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="@Url.Action("EmployeeServices", "Home")" class="text-decoration-none text-dark">
+                    <div class="quicklink-card text-center">
+                        <i class="fa fa-users quicklink-icon fa-2x mb-2"></i>
+                        <div class="quicklink-text">Employee Services</div>
+                        <i class="fa fa-bullhorn quicklink-icon fa-2x mt-2"></i>
+                    </div>
+                </a>
+            </div>
+           <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+    <div class="quicklink-card p-3 h-100 d-flex flex-column justify-content-between">
+        <div>
+            <i class="fa fa-bullhorn quicklink-icon fa-2x mb-2"></i>
+            <div class="quicklink-text fw-bold mb-2">Internal Communication</div>
+        </div>
+
+        <div class="mt-2 text-end">
+            <a href="@Url.Action("Index", "Announcements")" class="small fw-semibold text-primary">View More →</a>
         </div>
     </div>
 </div>
 
-<!-- Quick Links Section -->
-<div class="container">
-    <div class="row justify-content-center g-4 py-3">
-        <!-- Card Item -->
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="quicklink-card" onclick="window.location.href='https://mail.kephis.org'">
-                <i class="fa fa-envelope quicklink-icon fa-2x"></i>
-                <div class="quicklink-text">Staff Mail</div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="http://192.168.0.31:8085/sops/" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark">
+                    <div class="quicklink-card">
+                        <i class="fa fa-file-alt quicklink-icon fa-2x"></i>
+                        <div class="quicklink-text">Documents & Policies</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                <a href="@Url.Action("Create", "ZoomRequests")" class="text-decoration-none text-dark">
+                    <div class="quicklink-card text-center">
+                        <i class="fa fa-handshake quicklink-icon fa-2x mb-2"></i>
+                        <div class="quicklink-text">Zoom Meeting Requests</div>
+                    </div>
+                </a>
             </div>
         </div>
-
-
-        <a href="@Url.Action("EmployeeServices", "Home")">
-            <div style="max-width: 1600px; width: 100%; margin: 0 auto;">
-                <div class="quicklink-card">
-                    <i class="fa fa-users quicklink-icon fa-2x"></i>
-                    <div class="quicklink-text">Employee Services</div>
-                    <i class="fa fa-bullhorn quicklink-icon fa-2x"></i>
-                </div>
-            </div>
-        </a>``
-
-
-
-
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="quicklink-card">
-                <i class="fa fa-bullhorn quicklink-icon fa-2x"></i>
-                <div class="quicklink-text">Internal Communication</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="quicklink-card">
-                <i class="fa fa-file-alt quicklink-icon fa-2x"></i>
-                <div class="quicklink-text">Documents & Policies</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="quicklink-card">
-			<img src="~/assets/images/tool.png" alt="Work Tools" class="quicklink-image">
-                <div class="quicklink-text">Work Tools</div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="quicklink-card">
-                <i class="fa fa-handshake quicklink-icon fa-2x"></i>
-                <div class="quicklink-text">Collaboration</div>
-            </div>
-        </div>
-
     </div>
-</div>
-<!-- Resources, Shout-Outs, and Calendar Section -->
-<div class="container my-5">
-    <div class="row g-5">
 
-        <!-- Top Resources -->
-        <div class="col-12 col-lg-4">
-            <h3 class="section-title">TOP RESOURCES</h3>
-
-            <div class="search-box my-3">
-                <input type="text" class="form-control search-input" placeholder="Search Forms & Templates">
-            </div>
-
-            <div class="resources-scroll">
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="resource-card bg-dark-blue">✏️ Request Forms</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-teal">✨ Applications</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-orange">📝 Templates</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-green">💡 Projects</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-green">📖 Employee Handbook</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-gray">📋 Policies & Procedures</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-light-blue">📢 Marketing Collateral</div>
-                    </div>
-                    <div class="col-6">
-                        <div class="resource-card bg-dark-navy">📰 Newsletters</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Shout-Outs -->
-        <div class="col-12 col-lg-4">
-            <h3 class="section-title">SHOUT-OUTS</h3>
-
-            <div class="shoutouts-scroll mt-3">
-                <div class="card shoutout-card p-3">
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Avatar">
-                        <div>
-                            <strong>Sabina Saetgareeva</strong> recognized <strong>Yaroslav Pentsarskyy</strong><br>
-                            <small class="text-muted">on June 11</small>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                        <span class="emoji-icon me-2">👋</span>
-                        <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Avatar">
-                    </div>
-                    <p class="shoutout-text">
-                        I want to give a huge shout-out to Yaro for his exceptional coordination between the Development, QA, DevOps, and Support teams in quickly addressing and resolving the system outage last Friday...
-                    </p>
-                    <div class="d-flex align-items-center like-section">
-                        <i class="fa fa-thumbs-up me-1"></i> <span>1</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Calendar -->
-        <div class="col-12 col-lg-4">
-            <h3 class="section-title">CALENDAR</h3>
-
-            <div class="calendar-scroll mt-3">
-                <div class="calendar-container p-3">
-                    <div class="calendar-header text-center">
-                        <h5>Jul 2024</h5>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-sm btn-light">&lt;</button>
-                            <button class="btn btn-sm btn-light">&gt;</button>
-                        </div>
-                    </div>
-
-                    <div class="calendar-body mt-3">
-                        <table class="table table-bordered calendar-table">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>T</th>
-                                    <th>W</th>
-                                    <th>T</th>
-                                    <th>F</th>
-                                    <th>S</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-                                <tr><td>7</td><td class="highlight">8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-                                <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
-                                <tr><td>21</td><td>22</td><td>23</td><td>24</td><td class="highlight">25</td><td>26</td><td>27</td></tr>
-                                <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="event-details mt-3">
-                        <div class="border p-2 rounded">
-                            <strong>26 JUL</strong><br>
-                            New Hire Orientation<br>
-                            <small>4:00 PM - 5:00 PM</small><br>
-                            <span class="badge bg-success mt-1">Business</span>
-                            <div><a href="#" class="event-rsvp">+ RSVP</a></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
+    <div class="container-fluid mt-5 mb-4">
+        <h3 class="text-center fw-semibold" style="font-size: 1.75rem;">
+            ANNOUNCEMENTS
+        </h3>
     </div>
-</div>
+
+    <!-- Announcements Section -->
+    <div class="container mt-5">
+        <div class="row">
+            @if (ViewBag.Announcements != null && ((IEnumerable<KEPHISIntranet.Models.Announcement>)ViewBag.Announcements).Any())
+            {
+                var allAnnouncements = (IEnumerable<KEPHISIntranet.Models.Announcement>)ViewBag.Announcements;
+                var latest = allAnnouncements.FirstOrDefault();
+                var secondLatest = allAnnouncements.Skip(1).FirstOrDefault();
+
+                <div class="col-md-6 mb-4">
+                    <div class="card p-4 shadow-sm h-100">
+                        <h4 class="fw-bold mb-3" style="font-size: 1.5rem; text-transform: none;">
+                            Latest Announcement
+                        </h4>
+                        @if (latest != null)
+                        {
+                            <div>
+                                <div class="mb-2 fw-semibold text-dark" style="font-size: 1.05rem;">
+                                    @latest.CreatedBy
+                                </div>
+                                <div class="text-muted mb-3" style="font-size: 0.9rem;">
+                                    @latest.DateCreated.ToString("dd MMM yyyy • hh:mm tt")
+                                </div>
+                                <p class="text-body" style="font-size: 0.95rem; line-height: 1.6;">
+                                    @latest.AnnouncementText
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No latest announcement found.</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card p-4 shadow-sm h-100">
+                        <h4 class="fw-bold mb-3" style="font-size: 1.5rem; text-transform: none;">
+                            Previous Announcement
+                        </h4>
+                        @if (secondLatest != null)
+                        {
+                            <div>
+                                <div class="mb-2 fw-semibold text-dark" style="font-size: 1.05rem;">
+                                    @secondLatest.CreatedBy
+                                </div>
+                                <div class="text-muted mb-3" style="font-size: 0.9rem;">
+                                    @secondLatest.DateCreated.ToString("dd MMM yyyy • hh:mm tt")
+                                </div>
+                                <p class="text-body" style="font-size: 0.95rem; line-height: 1.6;">
+                                    @secondLatest.AnnouncementText
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No previous announcement found.</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-12 text-end mt-3">
+                    <a href="@Url.Action("Index", "Announcements")" class="btn btn-outline-primary btn-lg fw-semibold">
+                        View More →
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-secondary text-center">
+                        No announcements available at the moment.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="container-fluid mt-5 mb-5">
+        <h3 class="text-center fw-semibold mb-4" style="font-size: 1.75rem;">
+            CALENDAR
+        </h3>
+    </div>
+
+    <div class="border rounded shadow-sm p-3 bg-white">
+        <div class="calendar-header text-center mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <button id="prev-month" class="btn btn-outline-primary btn-sm">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <h5 id="calendar-month" class="fw-bold text-primary mb-0"></h5>
+                <button id="next-month" class="btn btn-outline-primary btn-sm">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-bordered calendar-table text-center mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+        </table>
+
+        <div id="event-list" class="mt-4"></div>
+    </div>
+
+</div> <!-- ✅ End of dashboard background wrapper -->
+
+@section Scripts {
+    <script>
+        const holidays = {
+            "01-01": "New Year's Day",
+            "03-08": "International Women's Day",
+            "05-01": "Labour Day",
+            "06-01": "Madaraka Day (Kenya)",
+            "10-10": "Huduma Day (Kenya)",
+            "10-20": "Mashujaa Day (Kenya)",
+            "12-12": "Jamhuri Day (Kenya)",
+            "12-25": "Christmas Day",
+            "12-26": "Boxing Day"
+        };
+
+        let currentDate = new Date();
+
+        function generateCalendar(month, year) {
+            const tbody = document.getElementById("calendar-body");
+            const monthLabel = document.getElementById("calendar-month");
+            const eventList = document.getElementById("event-list");
+
+            const today = new Date();
+            const isCurrentMonth = (today.getMonth() === month && today.getFullYear() === year);
+
+            const firstDay = new Date(year, month).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            monthLabel.textContent = `${monthNames[month]} ${year}`;
+            tbody.innerHTML = "";
+            eventList.innerHTML = "";
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < 7; j++) {
+                    let cell = document.createElement("td");
+                    if (i === 0 && j < firstDay) {
+                        cell.innerHTML = "";
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        const cellDate = new Date(year, month, date);
+                        const mmdd = (cellDate.getMonth() + 1).toString().padStart(2, '0') + "-" + cellDate.getDate().toString().padStart(2, '0');
+                        cell.innerHTML = date;
+
+                        if (isCurrentMonth && date === today.getDate()) {
+                            cell.classList.add("bg-primary", "text-white", "fw-bold");
+                        }
+
+                        if (holidays[mmdd]) {
+                            cell.classList.add("bg-warning", "fw-bold");
+                            const holidayText = document.createElement("div");
+                            holidayText.classList.add("text-muted", "text-start", "small");
+                            holidayText.innerHTML = `<strong>${mmdd}</strong>: ${holidays[mmdd]}`;
+                            eventList.appendChild(holidayText);
+                        }
+
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                tbody.appendChild(row);
+                if (date > daysInMonth) break;
+            }
+        }
+
+        function changeMonth(offset) {
+            currentDate.setMonth(currentDate.getMonth() + offset);
+            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        }
+
+        document.getElementById("prev-month").addEventListener("click", () => changeMonth(-1));
+        document.getElementById("next-month").addEventListener("click", () => changeMonth(1));
+        generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+    </script>
+}

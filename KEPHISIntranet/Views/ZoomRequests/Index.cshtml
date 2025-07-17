@@ -1,0 +1,81 @@
+﻿@model IEnumerable<YourAppNamespace.Models.ZoomMeetingRequest>
+
+@{
+    ViewData["Title"] = "Zoom Meeting Requests";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!Model.Any())
+{
+    <p>No Zoom meeting requests found.</p>
+}
+else
+{
+    <form asp-action="SaveApprovals" method="post">
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Participants (Count)</th>
+                    <th>Admin Approval</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@item.StartTime</td>
+                        <td>@item.EndTime</td>
+                        <td>@item.ParticipantCount</td>
+                        <td>
+                            <select name="approvals[@item.Id]" class="form-select">
+                                <option value="">-- Select --</option>
+
+                                @if (item.AdminApproval == "Approved")
+                                {
+                                    <option value="Approved" selected>Approved</option>
+                                }
+                                else
+                                {
+                                    <option value="Approved">Approved</option>
+                                }
+
+                                @if (item.AdminApproval == "Pending")
+                                {
+                                    <option value="Pending" selected>Pending</option>
+                                }
+                                else
+                                {
+                                    <option value="Pending">Pending</option>
+                                }
+                            </select>
+                        </td>
+                        <td>@item.CreatedBy</td>
+                        <td>@item.CreatedDate.ToString("g")</td>
+                        <td>
+                            <a asp-action="Delete"
+                               asp-route-id="@item.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this Zoom request?');">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-success mt-3">
+            Save Approvals
+        </button>
+    </form>
+}

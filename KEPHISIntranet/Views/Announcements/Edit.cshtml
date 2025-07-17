@@ -1,0 +1,48 @@
+﻿@model KEPHISIntranet.Models.Announcement
+
+@{
+    ViewData["Title"] = "Edit Announcement";
+}
+
+<h2 class="mb-4 fw-bold">Edit Announcement</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="ID" />
+
+            <div class="form-group mb-3">
+                <label asp-for="AnnouncementText" class="form-label fw-semibold">Announcement</label>
+                <textarea asp-for="AnnouncementText" class="form-control" rows="4" placeholder="Enter announcement text..."></textarea>
+                <span asp-validation-for="AnnouncementText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CreatedBy" class="form-label fw-semibold">Created By</label>
+                <input asp-for="CreatedBy" class="form-control" readonly />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="DateCreated" class="form-label fw-semibold">Date Created</label>
+                <input asp-for="DateCreated" class="form-control" type="datetime-local" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save me-1"></i> Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

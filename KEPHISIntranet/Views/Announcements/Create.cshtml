@@ -1,0 +1,36 @@
+﻿@model KEPHISIntranet.Models.Announcement
+
+@{
+    ViewData["Title"] = "Create Announcement";
+    string createdBy = User.Identity?.Name ?? "Unknown User";
+}
+
+<h2 class="mb-4 fw-bold">Create New Announcement</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="form-group mb-3">
+                <label asp-for="AnnouncementText" class="form-label fw-semibold">Announcement</label>
+                <textarea asp-for="AnnouncementText" class="form-control" rows="5" placeholder="Write your announcement here..."></textarea>
+                <span asp-validation-for="AnnouncementText" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="CreatedBy" value="@createdBy" />
+            <input type="hidden" asp-for="DateCreated" value="@DateTime.Now" />
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"></i> Back
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-paper-plane me-1"></i> Post Announcement
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

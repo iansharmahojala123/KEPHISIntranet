@@ -1,0 +1,44 @@
+﻿@model KEPHISIntranet.ViewModels.CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+    var userId = ViewBag.UserId as string ?? "";
+    var availableRoles = (ViewBag.Roles as List<string>)?.Where(r => r != "HR").ToList();
+}
+
+<h2 class="mb-4">Edit User</h2>
+
+<form asp-action="EditUser" asp-route-id="@userId" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="UserName" class="form-label"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="Role" class="form-label"></label>
+        <select asp-for="Role" class="form-control" asp-items="@(new SelectList(availableRoles))">
+            <option value="">-- Select Role --</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i> Save Changes
+        </button>
+        <a asp-action="UsersList" class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Cancel
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

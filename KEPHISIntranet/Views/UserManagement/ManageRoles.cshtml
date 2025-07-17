@@ -1,0 +1,106 @@
+﻿@model List<KEPHISIntranet.ViewModels.UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "Manage Users & Roles";
+    var allRoles = ((List<string>)ViewBag.AllRoles).Where(r => r != "HR").ToList();
+}
+
+<h2 class="mb-4">Manage Users & Roles</h2>
+
+<!-- ✅ Scoped TempData Message -->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<!-- ✅ Create New User -->
+<div class="card mb-4">
+    <div class="card-header">Create New User</div>
+    <div class="card-body">
+        <form asp-action="CreateUser" method="post" class="row g-3">
+            <div class="col-md-3">
+                <input type="text" name="Name" class="form-control" placeholder="Name" required />
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="UserName" class="form-control" placeholder="Username" required />
+            </div>
+            <div class="col-md-2">
+                <input type="email" name="Email" class="form-control" placeholder="Email" required />
+            </div>
+            <div class="col-md-2">
+                <input type="password" name="Password" class="form-control" placeholder="Password" required />
+            </div>
+            <div class="col-md-2">
+                <select name="Role" class="form-select" required>
+                    <option value="">-- Select Role --</option>
+                    @foreach (var role in allRoles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success w-100">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ✅ Manage Existing Users -->
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Update</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            var isDisabled = user.IsDisabled;
+            var status = isDisabled ? "Disabled" : "Active";
+            var statusClass = isDisabled ? "bg-danger text-white" : "bg-success text-white";
+
+            <tr>
+                <form method="post" asp-action="UpdateUser">
+                    <input type="hidden" name="userId" value="@user.UserId" />
+                <td>
+                    <input type="text" name="newName" class="form-control form-control-sm" value="@user.Name" />
+                </td>
+                <td>
+                    <input type="text" name="newUserName" class="form-control form-control-sm" value="@user.UserName" />
+                </td>
+                <td>
+                    <input type="email" name="newEmail" class="form-control form-control-sm" value="@user.Email" />
+                </td>
+                <td>
+                    <select name="newRole" class="form-select form-select-sm">
+                        @foreach (var role in allRoles)
+                        {
+                            <option value="@role" selected="@(role == user.CurrentRole ? "selected" : null)">
+                                @role
+                            </option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" name="actionType" value="update" class="btn btn-sm btn-primary">Update</button>
+                </td>
+                <td>
+                    <button type="submit" name="actionType" value="toggle" class="btn btn-sm btn-outline-@(isDisabled ? "success" : "danger")">
+                        @(isDisabled ? "Enable" : "Disable")
+                    </button>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>

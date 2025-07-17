@@ -2,48 +2,99 @@
     ViewBag.Title = "Employee Services";
 }
 
-<h2 style="text-align: center; margin-bottom: 40px;">Employee Services</h2>
+<h2 class="text-center fw-bold mb-5">Employee Services</h2>
 
-<div class="grid-container">
+<div class="container">
+    <div class="row g-4">
 
-    <div class="grid-card">
-        <a href="http://41.139.212.197:1080/" target="_blank" rel="noopener noreferrer">
-            <div class="quicklink-card">
-                <div class="quicklink-text">KEPHIS Welfare</div>
-            </div>
-        </a>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="http://41.139.212.197:1080/" target="_blank" class="service-link">
+                <div class="service-card">
+                    <i class="fa fa-heartbeat service-icon"></i>
+                    <h5 class="service-title">KEPHIS Welfare</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="https://selfservice.kephis.org/" target="_blank" class="service-link">
+                <div class="service-card">
+                    <i class="fa fa-user-circle service-icon"></i>
+                    <h5 class="service-title">Kephis Self-Service Portal</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="http://197.248.126.4:8095/sops/welcome-login.html" target="_blank" class="service-link">
+                <div class="service-card">
+                    <i class="fa fa-lock service-icon"></i>
+                    <h5 class="service-title">KEPHIS ISMS</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="http://192.168.0.55:8081/" target="_blank" class="service-link">
+                <div class="service-card">
+                    <i class="fa fa-flask service-icon"></i>
+                    <h5 class="service-title">Laboratory Sample Tracking</h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="http://41.139.212.196:8082/Account/Login?returnUrl=/" target="_blank" class="service-link">
+                <div class="service-card">
+                    <i class="fa fa-file-text service-icon"></i>
+                    <h5 class="service-title">Phytosanitary Docs System</h5>
+                </div>
+            </a>
+        </div>
+
     </div>
-
-    <div class="grid-card">
-        <a href="https://selfservice.kephis.org/" target="_blank" rel="noopener noreferrer">
-            <div class="quicklink-card">
-                <div class="quicklink-text">Kephis Self-Service Portal</div>
-            </div>
-        </a>
-    </div>
-
-    <div class="grid-card">
-        <a href="http://197.248.126.4:8095/sops/welcome-login.html" target="_blank" rel="noopener noreferrer">
-            <div class="quicklink-card">
-                <div class="quicklink-text">KEPHIS ISMS</div>
-            </div>
-        </a>
-    </div>
-
-    <div class="grid-card">
-        <a href="http://192.168.0.55:8081/" target="_blank" rel="noopener noreferrer">
-            <div class="quicklink-card">
-                <div class="quicklink-text">Laboratory Sample Tracking Management System</div>
-            </div>
-        </a>
-    </div>
-
-    <div class="grid-card">
-        <a href="http://41.139.212.196:8082/Account/Login?returnUrl=/" target="_blank" rel="noopener noreferrer">
-            <div class="quicklink-card">
-                <div class="quicklink-text">Phytosanitary Documents Management System</div>
-            </div>
-        </a>
-    </div>
-
 </div>
+
+<style>
+    .service-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .service-card {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 30px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        height: 100%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .service-card:hover {
+            background: #f5f7fa;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    .service-icon {
+        font-size: 2.5rem;
+        color: #28a745; /* ✅ Green icons */
+        margin-bottom: 15px;
+    }
+
+    .service-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .service-card:focus-within {
+        outline: 2px solid #28a745;
+        outline-offset: 4px;
+    }
+</style>
